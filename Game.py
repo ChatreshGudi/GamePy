@@ -87,14 +87,24 @@ class Widget:
         self.parent.addWidget(self)
 
 class Text(Widget):
-    def __init__(self, parent:Scene, text, size, font:str = None):
+    def __init__(self, parent:Scene, text, size, color, posx, posy, font:str = None):
         '''Constructor'''
         super().__init__(parent)
-        self.__text = text
-        self.__size = size
-        self.__fonttxt = font
+
+        self.config = {
+            'text': text,
+            'size': size,
+            'font_txt':font,
+            'color':color,
+            'x':posx,
+            'y': posy
+        }
         
-        self.__font = pygame.font.SysFont(self.__fonttxt, self.__size) # Pygame Font
+        self.__font = pygame.font.SysFont(self.config['fonttxt'], self.config['size']) # Pygame Font
+
+    def render(self):
+        img = self.__font.render(self.config['text'], True, self.config['color'])
+        self.parent.win.main.blit(img, ())
 
 
 class Button(Widget):
