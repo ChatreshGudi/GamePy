@@ -56,12 +56,15 @@ class Scene:
         self.__wintitle = wintitle
 
     def setBG(self, bg:tuple):
+        '''Used to change the background.'''
         self.__bg = bg
 
     def setWinTitle(self, title:str):
+        '''Used to change the title.'''
         self.__wintitle = title
 
     def addWidget(self, widget):
+        '''Used to add a widget.'''
         self.widgets.append(widget)
 
     def switchScene(self):
@@ -79,8 +82,20 @@ class Scene:
 
 class Widget:
     def __init__(self, parent:Scene):
+        '''Constructor'''
         self.parent = parent
         self.parent.addWidget(self)
+
+class Text(Widget):
+    def __init__(self, parent:Scene, text, size, font:str = None):
+        '''Constructor'''
+        super().__init__(parent)
+        self.__text = text
+        self.__size = size
+        self.__fonttxt = font
+        
+        self.__font = pygame.font.SysFont(self.__fonttxt, self.__size) # Pygame Font
+
 
 class Button(Widget):
     def __init__(self, parent: Scene, posx:int, posy:int, width:int, height:int, bg:tuple = (0, 0, 0), border_width:int = 0, border_color:tuple = (0, 0, 0), border_radius:int = 0) -> None:
